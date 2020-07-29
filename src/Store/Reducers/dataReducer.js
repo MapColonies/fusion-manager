@@ -184,9 +184,9 @@ export default function (state = defaultState, action) {
 
     case ADD_RESOURCE:
       return produce(state, (draft) => {
-        const resource = action.payload;
-        const groups = state.data["groups"];
-        const items = state.data.items;
+        const resource = action.payload.item;
+        const groups = draft.data["groups"];
+        const items = draft.data.items;
 
         prepareResourceForDisplay(resource);
         items[resource.name] = resource;

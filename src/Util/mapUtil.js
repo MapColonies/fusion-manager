@@ -87,7 +87,16 @@ export function addBaseLayer(map) {
 }
 
 export function addResourceToMap(map, resource) {
-  const group = getLayerGroupByName();
+  let group = getLayerGroupByName(map, resource.name);
+  let groupExists = group ? true : false;
+
+  if(!group) {
+    group = new OlLayerGroup({
+      name: 'level-' + resource.level,
+      layers: [],
+    });
+  }
+
   const newLayer = new OlLayerImage({
     name: resource.name,
     source: new Static({
@@ -97,7 +106,12 @@ export function addResourceToMap(map, resource) {
       crossOrigin: "Anonymous",
     }),
   });
-  map.getLayers().push(newLayer);
+
+  group.getLayers().push(newLayer);
+
+  if(!groupExists) {
+    map.getLayers().push(group);
+  }
 }
 
 // add layers to map in the initial state

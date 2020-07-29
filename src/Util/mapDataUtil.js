@@ -11,7 +11,7 @@ export function addToGroups(groups, resource) {
       itemsIds: [resource.name],
     };
   } else {
-    groups[resource.level].itemIds.push(resource.name);
+    groups["level-" + resource.level].itemsIds.push(resource.name);
   }
 }
 
