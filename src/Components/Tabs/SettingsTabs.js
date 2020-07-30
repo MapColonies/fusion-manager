@@ -42,7 +42,7 @@ export default function SettingsTabs(props) {
           <Tab label="Mask" {...a11yProps(1)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <Crop item={props} />
+          <Crop item={props.item} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           {

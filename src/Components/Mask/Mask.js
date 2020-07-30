@@ -117,7 +117,7 @@ export default function Mask(props) {
     dispatch({
       type: UPDATE_MASK,
       payload: {
-        name: props.item.name,
+        id: props.item.id,
         feather,
         holesize,
         tolerance,

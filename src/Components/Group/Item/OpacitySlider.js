@@ -72,7 +72,7 @@ export default function CustomizedSlider(props) {
       setOpacity(newValue);
       dispatch({
         type: CHANGE_OPACITY,
-        payload: { id: props.item.name, opacity: newValue },
+        payload: { id: props.item.id, opacity: newValue },
       });
     }
   };

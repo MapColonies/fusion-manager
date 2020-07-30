@@ -52,7 +52,7 @@ export default function (state = defaultState, action) {
         // convert data from the server for open layers and react dnd
         resources.forEach((resource) => {
           prepareResourceForDisplay(resource);
-          items[resource.name] = resource;
+          items[resource.id] = resource;
           addToGroups(groups, resource);
         });
 
@@ -165,19 +165,19 @@ export default function (state = defaultState, action) {
 
     case UPDATE_MASK: {
       return produce(state, (draft) => {
-        draft.data.items[action.payload.name].mask.feather =
+        draft.data.items[action.payload.id].mask.feather =
           action.payload.feather;
-        draft.data.items[action.payload.name].mask.hole_size =
+        draft.data.items[action.payload.id].mask.hole_size =
           action.payload.holesize;
         // TODO: should betolerance
-        draft.data.items[action.payload.name].mask.threshold =
+        draft.data.items[action.payload.id].mask.threshold =
           action.payload.tolerance;
-        draft.data.items[action.payload.name].mask.band = parseInt(
+        draft.data.items[action.payload.id].mask.band = parseInt(
           action.payload.band
         );
-        draft.data.items[action.payload.name].mask.white_fill = ~~action.payload
+        draft.data.items[action.payload.id].mask.white_fill = ~~action.payload
           .whiteFill;
-        draft.data.items[action.payload.name].takenAt =
+        draft.data.items[action.payload.id].takenAt =
           action.payload.sourceDate;
       });
     }
@@ -189,7 +189,7 @@ export default function (state = defaultState, action) {
         const items = draft.data.items;
 
         prepareResourceForDisplay(resource);
-        items[resource.name] = resource;
+        items[resource.id] = resource;
 
         addToGroups(groups, resource);
         setDraftData(draft, items, groups);
@@ -202,7 +202,7 @@ export default function (state = defaultState, action) {
         const groups = draft.data["groups"];
         const items = draft.data.items;
 
-        delete items[resource.name];
+        delete items[resource.id];
         removeFromGroups(groups, resource);
         removeResourceFromMap(state.map, resource);
 

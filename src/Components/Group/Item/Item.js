@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Link,
   Avatar,
-  IconButton,
+  IconButton
 } from "@material-ui/core/";
 import { ExpandMore, Settings, ZoomIn } from "@material-ui/icons/";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import {
   TOGGLE_ITEM,
   SELECT_ITEM,
   ZOOM_TO_LAYER,
+  ADD_RESOURCE,
 } from "../../../Store/Reducers/actionTypes";
 
 const useStyles = makeStyles({
@@ -43,12 +44,12 @@ export default React.memo(function Item(props) {
   }, [itemDetails]);
 
   const handleCheckboxClick = function () {
-    dispatch({ type: TOGGLE_ITEM, payload: { id: item.name } });
+    dispatch({ type: TOGGLE_ITEM, payload: { id: item.id } });
   };
 
   const handleSelectItem = function (e) {
     e.stopPropagation();
-    dispatch({ type: SELECT_ITEM, payload: { id: item.name } });
+    dispatch({ type: SELECT_ITEM, payload: { id: item.id } });
   };
 
   const handleOpenDialog = function () {
@@ -60,7 +61,11 @@ export default React.memo(function Item(props) {
   };
 
   const handleZoomToLayer = function () {
-    dispatch({ type: ZOOM_TO_LAYER, payload: { id: item.name } });
+    dispatch({ type: ZOOM_TO_LAYER, payload: { id: item.id } });
+  };
+
+  const addResource = function () {
+    dispatch({ type: ADD_RESOURCE, payload: { item } });
   };
 
   return (
@@ -120,10 +125,10 @@ export default React.memo(function Item(props) {
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <SettingsTabs
-            itemId={item.name}
+            // itemId={item.name}
             item={item}
-            src={item.uri}
-            extent={item.extent}
+            // src={item.uri}
+            // extent={item.extent}
             open={open}
             close={handleCloseDialog}
           />

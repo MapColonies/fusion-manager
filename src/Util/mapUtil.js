@@ -1,34 +1,34 @@
-import OlMap from "ol/Map";
-import OlView from "ol/View";
-import OlLayerImage from "ol/layer/Image";
-import Static from "ol/source/ImageStatic";
-import OlLayerTile from "ol/layer/Tile";
-import OlSourceOsm from "ol/source/OSM";
-import OlLayerGroup from "ol/layer/Group";
-import MapConfig from "../Config/mapConfig";
-import { DEFAULT_PROJECTION } from "../Config/mapConfig";
+import OlMap from 'ol/Map';
+import OlView from 'ol/View';
+import OlLayerImage from 'ol/layer/Image';
+import Static from 'ol/source/ImageStatic';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceOsm from 'ol/source/OSM';
+import OlLayerGroup from 'ol/layer/Group';
+import MapConfig from '../Config/mapConfig';
+import { DEFAULT_PROJECTION } from '../Config/mapConfig';
 
 export function getLayerByName(map, name) {
   const mapLayers = map.getLayerGroup().getLayersArray();
-  return mapLayers.filter((layer) => layer.get("name") === name)[0];
+  return mapLayers.filter((layer) => layer.get('name') === name)[0];
 }
 
 export function getLayerGroupByName(map, name) {
   const mapLayersGroup = map.getLayers().getArray();
-  return mapLayersGroup.filter((layer) => layer.get("name") === name)[0];
+  return mapLayersGroup.filter((layer) => layer.get('name') === name)[0];
 }
 
 export function getHoverLayer(map) {
   const mapLayers = map.getLayerGroup().getLayersArray();
-  return mapLayers.filter((layer) => layer.get("name").includes("hover"))[0];
+  return mapLayers.filter((layer) => layer.get('name').includes('hover'))[0];
 }
 
 export function addHoverLayer(map, name) {
   const layer = getLayerByName(map, name);
   const newLayerWithHover = new OlLayerImage({
-    name: layer.get("name") + " hover",
+    name: layer.get('name') + ' hover',
     opacity: layer.getOpacity(),
-    className: "layerHover",
+    className: 'layerHover',
     source: new Static({
       url: layer.getSource().getUrl(),
       projection: MapConfig.DEFAULT_PROJECTION,
@@ -43,7 +43,7 @@ export function setVisibleGroup(map, groupName, visibility) {
   map
     .getLayers()
     .getArray()
-    .find((group) => group.get("name") === groupName)
+    .find((group) => group.get('name') === groupName)
     .setVisible(visibility);
 }
 
@@ -76,21 +76,31 @@ export function addBaseLayer(map) {
 
   const osm = new OlLayerTile({
     source: new OlSourceOsm(),
-    name: "OSM",
+    name: 'OSM',
   });
   const layerGroupOsm = new OlLayerGroup({
-    name: "OSM",
+    name: 'OSM',
     layers: [osm],
   });
 
   mapLayers.push(layerGroupOsm);
 }
 
+export function addGroupToMap(map, newGroup) {
+  const layersArray = map.getLayers().getArray();
+  const index = layersArray.findIndex(
+    (group) =>
+      parseInt(group.get('name').replace('level-', '')) >=
+      parseInt(newGroup.get('name').replace('level-', ''))
+  );
+  map.getLayers().insertAt(index, newGroup);
+}
+
 export function addResourceToMap(map, resource) {
   let group = getLayerGroupByName(map, resource.name);
   let groupExists = group ? true : false;
 
-  if(!group) {
+  if (!groupExists) {
     group = new OlLayerGroup({
       name: 'level-' + resource.level,
       layers: [],
@@ -98,19 +108,19 @@ export function addResourceToMap(map, resource) {
   }
 
   const newLayer = new OlLayerImage({
-    name: resource.name,
+    name: resource.id,
     source: new Static({
       url: resource.uri,
       projection: MapConfig.DEFAULT_PROJECTION,
       imageExtent: resource.extent,
-      crossOrigin: "Anonymous",
+      crossOrigin: 'Anonymous',
     }),
   });
 
   group.getLayers().push(newLayer);
 
-  if(!groupExists) {
-    map.getLayers().push(group);
+  if (!groupExists) {
+    addGroupToMap(map, group);
   }
 }
 
@@ -129,12 +139,12 @@ export function addLayersToMap(map, layers) {
     itemsIds.forEach((itemId) => {
       const item = layers.items[itemId];
       layer = new OlLayerImage({
-        name: item.name,
+        name: itemId,
         source: new Static({
           url: item.uri,
           projection: MapConfig.DEFAULT_PROJECTION,
           imageExtent: item.extent,
-          crossOrigin: "Anonymous",
+          crossOrigin: 'Anonymous',
         }),
       });
       layerGroupLayers.push(layer);
@@ -144,8 +154,8 @@ export function addLayersToMap(map, layers) {
 }
 
 export function removeResourceFromMap(map, resource) {
-  const group = getLayerGroupByName(map, "level-" + resource.level);
-  const layerToDelete = getLayerByName(map, resource.name);
+  const group = getLayerGroupByName(map, 'level-' + resource.level);
+  const layerToDelete = getLayerByName(map, resource.id);
   const groupLayers = group.getLayers();
   groupLayers.remove(layerToDelete);
 }

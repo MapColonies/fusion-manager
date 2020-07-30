@@ -8,17 +8,17 @@ export function addToGroups(groups, resource) {
       title: "Level " + resource.level,
       checked: true,
       level: resource.level,
-      itemsIds: [resource.name],
+      itemsIds: [resource.id],
     };
   } else {
-    groups["level-" + resource.level].itemsIds.push(resource.name);
+    groups["level-" + resource.level].itemsIds.push(resource.id);
   }
 }
 
 export function removeFromGroups(groups, resource) {
   const group = groups["level-" + resource.level];
   let itemIds = group.itemsIds;
-  itemIds = itemIds.filter((id) => id !== resource.name);
+  itemIds = itemIds.filter((id) => id !== resource.id);
 
   group.itemsIds = itemIds;
 
@@ -29,6 +29,7 @@ export function removeFromGroups(groups, resource) {
 }
 
 export function prepareResourceForDisplay(resource) {
+  resource.id = resource.search_path;
   resource.uri =
     Config.urlThumbnail +
     "name=" +

@@ -34,8 +34,8 @@ function getCroppedImg(image, crop) {
 
 export default function Crop(props) {
   const { enqueueSnackbar } = useSnackbar();
-  const { src, extent, itemId } = props.item;
-  const lastCrop = props.item.item.lastCrop;
+  const { id, extent, uri } = props.item;
+  const lastCrop = props.item.lastCrop;
   const [crop, setCrop] = useState(lastCrop || {});
   const dispatch = useDispatch();
   const imageToCrop = useRef(null);
@@ -69,7 +69,7 @@ export default function Crop(props) {
     const newImg = getCroppedImg(imgRef.current, crop, "cropped");
     dispatch({
       type: CROP,
-      payload: { id: itemId, newUri: newImg, newExtent, crop },
+      payload: { id: id, newUri: newImg, newExtent, crop },
     });
     enqueueSnackbar(CROP_UPDATED.message, { variant: CROP_UPDATED.variant });
   };
@@ -78,7 +78,7 @@ export default function Crop(props) {
     <div>
       <ReactCrop
         ref={imageToCrop}
-        src={src}
+        src={uri}
         crop={crop}
         crossorigin="anonymous"
         onChange={(newCrop) => setCrop(newCrop)}
