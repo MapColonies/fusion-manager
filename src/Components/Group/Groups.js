@@ -7,7 +7,7 @@ import { getLayerGroupByName } from '../../Util/mapUtil';
 import { UPDATE_STORE } from '../../Store/Reducers/actionTypes';
 import { CHOOSE_PROJECT } from '../../Constants/tooltips';
 import { ADD_RESOURCE } from '../../Store/Reducers/actionTypes';
-import { GetResources, GetResource } from '../../Requests/requests';
+import { getResources, getResource } from '../../Requests/requests';
 
 export default React.memo(function Groups(props) {
   const dataFromStore = useSelector((state) => state.data.data);
@@ -19,7 +19,7 @@ export default React.memo(function Groups(props) {
   }, [dataFromStore]);
 
   const fetchResource = async function (path, name) {
-    const res = await GetResource(path, name);
+    const res = await getResource(path, name);
     dispatch({ type: ADD_RESOURCE, payload: { item: res.latest } });
   };
 
@@ -125,8 +125,8 @@ export default React.memo(function Groups(props) {
         selectionKind="resource"
         dispatchFunction={fetchResource}
         checkNewSelection={false}
-        levelRequest={GetResources}
-        itemRequest={GetResource}
+        levelRequest={getResources}
+        itemRequest={getResource}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         {data.groupsOrder.map((groupId) => {

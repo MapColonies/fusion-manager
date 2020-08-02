@@ -9,7 +9,7 @@ import {
   INITIALIZE_STORE,
   INITIALIZE_MAP,
 } from '../../Store/Reducers/actionTypes';
-import { GetProjects, GetProject } from '../../Requests/requests';
+import { getProjects, getProject } from '../../Requests/requests';
 
 import 'ol/ol.css';
 import 'antd/dist/antd.css';
@@ -29,7 +29,7 @@ function App() {
   };
 
   const fetchProject = async function (path, name) {
-    const res = await GetProject(path, name);
+    const res = await getProject(path, name);
     dispatch({ type: INITIALIZE_STORE, payload: res.latest.resources });
   };
 
@@ -60,8 +60,8 @@ function App() {
           selectionKind="project"
           dispatchFunction={fetchProject}
           checkNewSelection={true}
-          levelRequest={GetProjects}
-          itemRequest={GetProject}
+          levelRequest={getProjects}
+          itemRequest={getProject}
         />
         <Groups map={map} />
       </Drawer>

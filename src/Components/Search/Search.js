@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
-import { SearchProjects, SearchResources } from "../../General/Requests";
+import { searchProjects, searchResources } from "../../General/Requests";
 import { RESOURCE } from "../../Constants/models";
 
 const useStyles = makeStyles({
@@ -25,7 +25,7 @@ export default function Search(props) {
   // Wanted model for searching (resource / project)
   const model = props.model;
   // Set search function by given model
-  const searchFunction = model === RESOURCE ? SearchResources : SearchProjects;
+  const searchFunction = model === RESOURCE ? searchResources : searchProjects;
 
   useEffect(() => {}, [searchResults]);
 
@@ -44,7 +44,9 @@ export default function Search(props) {
     try {
       const results = await searchFunction(searchText);
       setSearchResults(results[model + "s"]);
-    } catch (error) {}
+    } catch (error) {
+      // TODO: add error to logger
+    }
   };
 
   return (
