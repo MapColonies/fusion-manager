@@ -19,7 +19,7 @@ import {
   setDraftData,
 } from '../../Util/mapDataUtil';
 import {
-  INITIALIZE_STORE,
+  UPDATE_PROJECT,
   UPDATE_STORE,
   INITIALIZE_MAP,
   TOGGLE_GROUP,
@@ -43,7 +43,7 @@ addBaseLayer(defaultState.map);
 export default function (state = defaultState, action) {
   switch (action.type) {
     // Fires when data arrived from server
-    case INITIALIZE_STORE:
+    case UPDATE_PROJECT:
       return produce(state, (draft) => {
         const resources = action.payload;
         const groups = {};
