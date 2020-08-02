@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   List,
   ListItem,
   ListItemText,
   Button,
   TextField,
-} from "@material-ui/core/";
-import { makeStyles } from "@material-ui/core/styles";
-import { searchProjects, searchResources } from "../../General/Requests";
-import { RESOURCE } from "../../Constants/models";
+} from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
+import { searchProjects, searchResources } from '../../General/Requests';
+import { RESOURCE } from '../../Constants/models';
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 export default function Search(props) {
   const classes = useStyles();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   // Wanted model for searching (resource / project)
@@ -43,7 +43,7 @@ export default function Search(props) {
   const search = async function () {
     try {
       const results = await searchFunction(searchText);
-      setSearchResults(results[model + "s"]);
+      setSearchResults(results[model + 's']);
     } catch (error) {
       // TODO: add error to logger
     }

@@ -1,6 +1,6 @@
 const CROP_UPDATED = {
-  message: "Crop updated successfully",
-  variant: "success",
+  message: 'Crop updated successfully',
+  variant: 'success',
 };
 
 module.exports = {

@@ -1,21 +1,21 @@
-import React, { useState, useRef } from "react";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-import Button from "@material-ui/core/Button";
-import Done from "@material-ui/icons/Done";
-import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
-import { CROP } from "../../Store/Reducers/actionTypes";
-import { CROP_UPDATED } from "../../Constants/Messages/info";
+import React, { useState, useRef } from 'react';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+import Button from '@material-ui/core/Button';
+import Done from '@material-ui/icons/Done';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
+import { CROP } from '../../Store/Reducers/actionTypes';
+import { CROP_UPDATED } from '../../Constants/Messages/info';
 
 // return a new cropped img from user's selection
 function getCroppedImg(image, crop) {
-  const canvas = document.createElement("canvas");
+  const canvas = document.createElement('canvas');
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
   canvas.width = crop.width;
   canvas.height = crop.height;
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
   ctx.drawImage(
     image,
@@ -29,7 +29,7 @@ function getCroppedImg(image, crop) {
     crop.height
   );
 
-  return canvas.toDataURL("image/png");
+  return canvas.toDataURL('image/png');
 }
 
 export default function Crop(props) {
@@ -66,7 +66,7 @@ export default function Crop(props) {
 
   const handleCrop = function () {
     const newExtent = createNewExtent();
-    const newImg = getCroppedImg(imgRef.current, crop, "cropped");
+    const newImg = getCroppedImg(imgRef.current, crop, 'cropped');
     dispatch({
       type: CROP,
       payload: { id: id, newUri: newImg, newExtent, crop },

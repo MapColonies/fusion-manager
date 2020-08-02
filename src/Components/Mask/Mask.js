@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   Button,
@@ -8,22 +8,22 @@ import {
   FormControlLabel,
   FormLabel,
   Switch,
-} from "@material-ui/core/";
-import Done from "@material-ui/icons/Done";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+} from '@material-ui/core/';
+import Done from '@material-ui/icons/Done';
+import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import { useSnackbar } from "notistack";
-import { UPDATE_MASK } from "../../Store/Reducers/actionTypes";
+} from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import { useSnackbar } from 'notistack';
+import { UPDATE_MASK } from '../../Store/Reducers/actionTypes';
 
 const useStyles = makeStyles({
   band: {
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   },
 });
 
@@ -63,7 +63,7 @@ export default function Mask(props) {
   };
 
   const handleChangeFeather = function (e) {
-    if (e === "" || parseInt(e) < 0) {
+    if (e === '' || parseInt(e) < 0) {
       setFeather(0);
       return;
     }
@@ -71,7 +71,7 @@ export default function Mask(props) {
       setFeather(255);
       return;
     }
-    if (e.length > 1 && e[0] === "0") {
+    if (e.length > 1 && e[0] === '0') {
       let withoutZero = e.substring(1);
       setFeather(withoutZero);
       return;
@@ -80,7 +80,7 @@ export default function Mask(props) {
   };
 
   const handleChangeHolesize = function (e) {
-    if (e === "" || parseInt(e) < 0) {
+    if (e === '' || parseInt(e) < 0) {
       setHolesize(0);
       return;
     }
@@ -88,7 +88,7 @@ export default function Mask(props) {
       setHolesize(100000);
       return;
     }
-    if (e.length > 1 && e[0] === "0") {
+    if (e.length > 1 && e[0] === '0') {
       let withoutZero = e.substring(1);
       setHolesize(withoutZero);
       return;
@@ -97,7 +97,7 @@ export default function Mask(props) {
   };
 
   const handleChangeTolerance = function (e) {
-    if (e === "" || parseInt(e) < 0) {
+    if (e === '' || parseInt(e) < 0) {
       setTolerance(0);
       return;
     }
@@ -105,7 +105,7 @@ export default function Mask(props) {
       setTolerance(255);
       return;
     }
-    if (e.length > 1 && e[0] === "0") {
+    if (e.length > 1 && e[0] === '0') {
       let withoutZero = e.substring(1);
       setTolerance(withoutZero);
       return;
@@ -126,7 +126,7 @@ export default function Mask(props) {
         sourceDate,
       },
     });
-    enqueueSnackbar("Mask updated successfully", { variant: "success" });
+    enqueueSnackbar('Mask updated successfully', { variant: 'success' });
   };
 
   return (
@@ -217,7 +217,7 @@ export default function Mask(props) {
           />
         </Grid>
 
-        <Grid item xs={12} style={{ textAlign: "center" }}>
+        <Grid item xs={12} style={{ textAlign: 'center' }}>
           <Button
             variant="contained"
             startIcon={<Done />}

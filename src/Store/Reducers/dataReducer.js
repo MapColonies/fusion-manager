@@ -1,4 +1,4 @@
-import produce from "immer";
+import produce from 'immer';
 import {
   clearMap,
   cropLayer,
@@ -11,13 +11,13 @@ import {
   addResourceToMap,
   removeResourceFromMap,
   addBaseLayer,
-} from "../../Util/mapUtil";
+} from '../../Util/mapUtil';
 import {
   addToGroups,
   removeFromGroups,
   prepareResourceForDisplay,
   setDraftData,
-} from "../../Util/mapDataUtil";
+} from '../../Util/mapDataUtil';
 import {
   INITIALIZE_STORE,
   UPDATE_STORE,
@@ -31,7 +31,7 @@ import {
   UPDATE_MASK,
   ADD_RESOURCE,
   REMOVE_RESOURCE,
-} from "./actionTypes";
+} from './actionTypes';
 
 let defaultState = {
   data: null,
@@ -120,7 +120,7 @@ export default function (state = defaultState, action) {
       layer.setOpacity(action.payload.opacity / 100);
       const hoveredLayer = getLayerByName(
         state.map,
-        action.payload.id + " hover"
+        action.payload.id + ' hover'
       );
 
       if (hoveredLayer) {
@@ -140,7 +140,7 @@ export default function (state = defaultState, action) {
         const layer = getLayerByName(state.map, action.payload.id);
         const hoverLayer = getLayerByName(
           state.map,
-          action.payload.id + " hover"
+          action.payload.id + ' hover'
         );
 
         cropLayer(layer, action.payload.newUri, action.payload.newExtent);
@@ -177,15 +177,24 @@ export default function (state = defaultState, action) {
         );
         draft.data.items[action.payload.id].mask.white_fill = ~~action.payload
           .whiteFill;
-        draft.data.items[action.payload.id].takenAt =
-          action.payload.sourceDate;
+        draft.data.items[action.payload.id].takenAt = action.payload.sourceDate;
       });
     }
 
     case ADD_RESOURCE:
       return produce(state, (draft) => {
         const resource = action.payload.item;
-        const groups = draft.data["groups"];
+        // const resource = {
+        //   name: "SFBayAreaLanSat_20021010",
+        //   level: "8",
+        //   version: "1",
+        //   extent: "38.464679718017578,36.454353332519531,-120.71331024169922,-123.53061676025391",
+        //   search_path: "/hello/SFBayAreaLanSat_20021010",
+        //   mask: {
+        //     no_mask: true
+        //   }
+        // };
+        const groups = draft.data['groups'];
         const items = draft.data.items;
 
         prepareResourceForDisplay(resource);
@@ -199,7 +208,7 @@ export default function (state = defaultState, action) {
     case REMOVE_RESOURCE:
       return produce(state, (draft) => {
         const resource = action.payload.item;
-        const groups = draft.data["groups"];
+        const groups = draft.data['groups'];
         const items = draft.data.items;
 
         delete items[resource.id];
@@ -208,7 +217,7 @@ export default function (state = defaultState, action) {
 
         // check if should remove hover layer
         const hoverLayer = getHoverLayer(state.map);
-        if (hoverLayer && hoverLayer.get("name") === resource.name + " hover") {
+        if (hoverLayer && hoverLayer.get('name') === resource.name + ' hover') {
           state.map.removeLayer(hoverLayer);
         }
 

@@ -12,7 +12,7 @@ export function isGroupChecked(state) {
 
 export function makeCoordinatesArrayFromString(s) {
   let arr = [];
-  let splitS = s.split(",");
+  let splitS = s.split(',');
   arr.push(parseFloat(splitS[3]));
   arr.push(parseFloat(splitS[1]));
   arr.push(parseFloat(splitS[2]));

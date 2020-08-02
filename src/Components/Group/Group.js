@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Item from "../Group/Item/ItemContainer";
-import { Droppable } from "react-beautiful-dnd";
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Item from '../Group/Item/ItemContainer';
+import { Droppable } from 'react-beautiful-dnd';
 
 import {
   ExpansionPanel,
@@ -9,17 +9,17 @@ import {
   ExpansionPanelDetails,
   Checkbox,
   FormControlLabel,
-} from "@material-ui/core/";
-import { ExpandMore } from "@material-ui/icons/";
-import { useDispatch } from "react-redux";
-import { TOGGLE_GROUP } from "../../Store/Reducers/actionTypes";
+} from '@material-ui/core/';
+import { ExpandMore } from '@material-ui/icons/';
+import { useDispatch } from 'react-redux';
+import { TOGGLE_GROUP } from '../../Store/Reducers/actionTypes';
 
 const useStyles = makeStyles({
   items: {
-    padding: "0px",
-    maxHeight: "500px",
-    width: "100%",
-    overflow: "auto",
+    padding: '0px',
+    maxHeight: '500px',
+    width: '100%',
+    overflow: 'auto',
   },
 });
 
@@ -89,7 +89,7 @@ export default React.memo(function Group(props) {
         expandIcon={<ExpandMore />}
         aria-label="Expand"
         aria-controls="group-content"
-        id={props.group.id + "-expansion-panel-summary"}
+        id={props.group.id + '-expansion-panel-summary'}
       >
         <FormControlLabel
           aria-label="group-details"
@@ -105,7 +105,7 @@ export default React.memo(function Group(props) {
         />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails
-        style={{ "min-height": "100px" }}
+        style={{ 'min-height': '100px' }}
         onScroll={(e) => {
           handleScroll(e);
         }}

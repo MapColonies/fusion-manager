@@ -1,16 +1,16 @@
-import React from "react";
-import { Dialog, Box } from "@material-ui/core";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Crop from "../Crop/Crop";
-import Mask from "../Mask/Mask";
+import React from 'react';
+import { Dialog, Box } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Crop from '../Crop/Crop';
+import Mask from '../Mask/Mask';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: "100%",
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -88,6 +88,6 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
   };
 }

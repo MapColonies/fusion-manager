@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
-import { useDispatch } from "react-redux";
-import { CHANGE_OPACITY } from "../../../Store/Reducers/actionTypes";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import { useDispatch } from 'react-redux';
+import { CHANGE_OPACITY } from '../../../Store/Reducers/actionTypes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
   },
   margin: {
     height: theme.spacing(3),
@@ -34,23 +34,23 @@ ValueLabelComponent.propTypes = {
 
 const PrettoSlider = withStyles({
   root: {
-    color: "#52af77",
+    color: '#52af77',
     height: 8,
   },
   thumb: {
     height: 24,
     width: 24,
-    backgroundColor: "#fff",
-    border: "2px solid currentColor",
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
     marginTop: -8,
     marginLeft: -12,
-    "&:focus,&:hover,&$active": {
-      boxShadow: "inherit",
+    '&:focus,&:hover,&$active': {
+      boxShadow: 'inherit',
     },
   },
   active: {},
   valueLabel: {
-    left: "calc(-50% + 4px)",
+    left: 'calc(-50% + 4px)',
   },
   track: {
     height: 8,

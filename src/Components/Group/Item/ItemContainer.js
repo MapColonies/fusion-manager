@@ -1,14 +1,13 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-// import styled from "styled-components";
-import { Draggable } from "react-beautiful-dnd";
-import Item from "./Item";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Draggable } from 'react-beautiful-dnd';
+import Item from './Item';
 
 const useStyles = makeStyles({
   root: {
-    padding: "8px",
-    marginBottom: "8px",
-    background: "white",
+    padding: '8px',
+    marginBottom: '8px',
+    background: 'white',
   },
 });
 

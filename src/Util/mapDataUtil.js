@@ -1,22 +1,22 @@
-import { makeCoordinatesArrayFromString } from "./logic";
-import Config from "../Config/urls";
+import { makeCoordinatesArrayFromString } from './logic';
+import Config from '../Config/urls';
 
 export function addToGroups(groups, resource) {
-  if (!groups["level-" + resource.level]) {
-    groups["level-" + resource.level] = {
-      id: "level-" + resource.level,
-      title: "Level " + resource.level,
+  if (!groups['level-' + resource.level]) {
+    groups['level-' + resource.level] = {
+      id: 'level-' + resource.level,
+      title: 'Level ' + resource.level,
       checked: true,
       level: resource.level,
       itemsIds: [resource.id],
     };
   } else {
-    groups["level-" + resource.level].itemsIds.push(resource.id);
+    groups['level-' + resource.level].itemsIds.push(resource.id);
   }
 }
 
 export function removeFromGroups(groups, resource) {
-  const group = groups["level-" + resource.level];
+  const group = groups['level-' + resource.level];
   let itemIds = group.itemsIds;
   itemIds = itemIds.filter((id) => id !== resource.id);
 
@@ -24,7 +24,7 @@ export function removeFromGroups(groups, resource) {
 
   // remove group if it's empty
   if (itemIds.length === 0) {
-    delete groups["level-" + resource.level];
+    delete groups['level-' + resource.level];
   }
 }
 
@@ -32,9 +32,9 @@ export function prepareResourceForDisplay(resource) {
   resource.id = resource.search_path;
   resource.uri =
     Config.urlThumbnail +
-    "name=" +
+    'name=' +
     resource.name +
-    "&version=" +
+    '&version=' +
     resource.version;
   resource.checked = true;
   resource.selected = false;
