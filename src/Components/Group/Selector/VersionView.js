@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { TreeItem } from '@material-ui/lab';
-import pathUtil from 'path';
 import { ERROR_CONTACTING_SERVER } from '../../../Constants/Messages/error';
 import { useSnackbar } from 'notistack';
 import VersionSelect from './VersionSelect';
