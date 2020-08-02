@@ -4,17 +4,23 @@ import { useDispatch } from 'react-redux';
 import { Tooltip, IconButton, Dialog, Button } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeInnerView from './TreeView';
 import { createUniqueName } from '../../../Util/treeUtil';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: 500,
     flexGrow: 1,
   },
-});
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 
 export default function Selector(props) {
   const classes = useStyles();
@@ -27,6 +33,7 @@ export default function Selector(props) {
   const [lastSelectionName, setLastSelectionName] = useState(null);
   const levelRequest = props.levelRequest;
   const itemRequest = props.itemRequest;
+  const [loading, setLoading] = useState(false);
 
   const isSelected = function (versionAndPath) {
     return (
@@ -45,11 +52,13 @@ export default function Selector(props) {
   };
 
   const handleSaveChanges = function () {
+    setLoading(true);
     dispatchFunction(selection.path, selection.item.name, dispatch);
     setLastSelectionName(
       createUniqueName(selection.path, selection.item.version)
     );
     toggleDialog();
+    setLoading(false);
   };
 
   return (
@@ -95,6 +104,9 @@ export default function Selector(props) {
             </Tooltip>
           )}
       </Dialog>
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress />
+      </Backdrop>
     </div>
   );
 }
