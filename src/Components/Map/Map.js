@@ -6,7 +6,7 @@ import { Drawer, IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { SimpleButton, MapComponent } from '@terrestris/react-geo';
 import {
-  INITIALIZE_STORE,
+  UPDATE_PROJECT,
   INITIALIZE_MAP,
 } from '../../Store/Reducers/actionTypes';
 import { getProjects, getProject } from '../../Requests/requests';
@@ -30,7 +30,7 @@ function App() {
 
   const fetchProject = async function (path, name) {
     const res = await getProject(path, name);
-    dispatch({ type: INITIALIZE_STORE, payload: res.latest.resources });
+    dispatch({ type: UPDATE_PROJECT, payload: res.latest.resources });
   };
 
   return (
