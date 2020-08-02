@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import Group from "./Group";
-import { useSelector, useDispatch } from "react-redux";
-import { getLayerGroupByName } from "../../Util/mapUtil";
-import { UPDATE_STORE } from "../../Store/Reducers/actionTypes";
-import { CHOOSE_PROJECT } from "../../Constants/tooltips";
+import React, { useState, useEffect } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import Group from './Group';
+import Selector from './Selector/Selector';
+import { useSelector, useDispatch } from 'react-redux';
+import { getLayerGroupByName } from '../../Util/mapUtil';
+import { UPDATE_STORE } from '../../Store/Reducers/actionTypes';
+import { CHOOSE_PROJECT } from '../../Constants/tooltips';
+import { ADD_RESOURCE } from '../../Store/Reducers/actionTypes';
+import { GetResources, GetResource } from '../../Requests/requests';
 
 export default React.memo(function Groups(props) {
   const dataFromStore = useSelector((state) => state.data.data);
@@ -14,6 +17,11 @@ export default React.memo(function Groups(props) {
   useEffect(() => {
     setData(dataFromStore);
   }, [dataFromStore]);
+
+  const fetchResource = async function (path, name) {
+    const res = await GetResource(path, name);
+    dispatch({ type: ADD_RESOURCE, payload: { item: res.latest } });
+  };
 
   const onDragEnd = function (result) {
     const { destination, source, draggableId } = result;
@@ -112,13 +120,22 @@ export default React.memo(function Groups(props) {
   };
 
   return data ? (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {data.groupsOrder.map((groupId) => {
-        const group = data.groups[groupId];
-        const items = group.itemsIds;
-        return <Group key={group.id} group={group} items={items} />;
-      })}
-    </DragDropContext>
+    <React.Fragment>
+      <Selector
+        selectionKind="resource"
+        dispatchFunction={fetchResource}
+        checkNewSelection={false}
+        levelRequest={GetResources}
+        itemRequest={GetResource}
+      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        {data.groupsOrder.map((groupId) => {
+          const group = data.groups[groupId];
+          const items = group.itemsIds;
+          return <Group key={group.id} group={group} items={items} />;
+        })}
+      </DragDropContext>
+    </React.Fragment>
   ) : (
     CHOOSE_PROJECT
   );

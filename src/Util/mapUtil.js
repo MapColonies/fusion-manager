@@ -97,7 +97,7 @@ export function addGroupToMap(map, newGroup) {
 }
 
 export function addResourceToMap(map, resource) {
-  let group = getLayerGroupByName(map, resource.name);
+  let group = getLayerGroupByName(map, 'level-' + resource.level);
   let groupExists = group ? true : false;
 
   if (!groupExists) {

@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import ProjectSelector from "../Group/Selector/ProjectSelector";
-import Groups from "../Group/Groups";
-import { Drawer, IconButton } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
-import { SimpleButton, MapComponent } from "@terrestris/react-geo";
-import { INITIALIZE_MAP } from "../../Store/Reducers/actionTypes";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Selector from '../Group/Selector/Selector';
+import Groups from '../Group/Groups';
+import { Drawer, IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
+import { SimpleButton, MapComponent } from '@terrestris/react-geo';
+import {
+  INITIALIZE_STORE,
+  INITIALIZE_MAP,
+} from '../../Store/Reducers/actionTypes';
+import { GetProjects, GetProject } from '../../Requests/requests';
 
-import "ol/ol.css";
-import "antd/dist/antd.css";
-import "./react-geo.css";
+import 'ol/ol.css';
+import 'antd/dist/antd.css';
+import './react-geo.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,12 +28,17 @@ function App() {
     setVisible(!visible);
   };
 
+  const fetchProject = async function (path, name) {
+    const res = await GetProject(path, name);
+    dispatch({ type: INITIALIZE_STORE, payload: res.latest.resources });
+  };
+
   return (
     <div className="App">
       <MapComponent map={map} />
 
       <SimpleButton
-        style={{ position: "fixed", top: "30px", right: "30px" }}
+        style={{ position: 'fixed', top: '30px', right: '30px' }}
         onClick={toggleDrawer}
         icon="bars"
       />
@@ -39,15 +48,21 @@ function App() {
         open={visible}
         variant="persistent"
         classes={{
-          paper: "paperDrawer",
+          paper: 'paperDrawer',
         }}
       >
         <div>
           <IconButton onClick={toggleDrawer}>
-            <Close />{" "}
+            <Close />{' '}
           </IconButton>
         </div>
-        <ProjectSelector />
+        <Selector
+          selectionKind="project"
+          dispatchFunction={fetchProject}
+          checkNewSelection={true}
+          levelRequest={GetProjects}
+          itemRequest={GetProject}
+        />
         <Groups map={map} />
       </Drawer>
     </div>
