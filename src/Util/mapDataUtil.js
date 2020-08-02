@@ -1,22 +1,23 @@
 import { makeCoordinatesArrayFromString } from './logic';
 import Config from '../Config/urls';
+import { GROUP_PREFIX } from '../Constants/map';
 
 export function addToGroups(groups, resource) {
-  if (!groups['level-' + resource.level]) {
-    groups['level-' + resource.level] = {
-      id: 'level-' + resource.level,
+  if (!groups[GROUP_PREFIX + resource.level]) {
+    groups[GROUP_PREFIX + resource.level] = {
+      id: GROUP_PREFIX + resource.level,
       title: 'Level ' + resource.level,
       checked: true,
       level: resource.level,
       itemsIds: [resource.id],
     };
   } else {
-    groups['level-' + resource.level].itemsIds.push(resource.id);
+    groups[GROUP_PREFIX + resource.level].itemsIds.push(resource.id);
   }
 }
 
 export function removeFromGroups(groups, resource) {
-  const group = groups['level-' + resource.level];
+  const group = groups[GROUP_PREFIX + resource.level];
   let itemIds = group.itemsIds;
   itemIds = itemIds.filter((id) => id !== resource.id);
 
@@ -24,7 +25,7 @@ export function removeFromGroups(groups, resource) {
 
   // remove group if it's empty
   if (itemIds.length === 0) {
-    delete groups['level-' + resource.level];
+    delete groups[GROUP_PREFIX + resource.level];
   }
 }
 

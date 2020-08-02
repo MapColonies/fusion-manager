@@ -5,8 +5,16 @@ import Static from 'ol/source/ImageStatic';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOsm from 'ol/source/OSM';
 import OlLayerGroup from 'ol/layer/Group';
-import MapConfig from '../Config/mapConfig';
-import { DEFAULT_PROJECTION } from '../Config/mapConfig';
+import {
+  DEFAULT_PROJECTION,
+  DEFAULT_ZOOM,
+  MAP_CENTER,
+} from '../Config/mapConfig';
+import {
+  BASE_LAYER_NAME,
+  BASE_LAYER_GROUP,
+  GROUP_PREFIX,
+} from '../Constants/map';
 
 export function getLayerByName(map, name) {
   const mapLayers = map.getLayerGroup().getLayersArray();
@@ -31,7 +39,7 @@ export function addHoverLayer(map, name) {
     className: 'layerHover',
     source: new Static({
       url: layer.getSource().getUrl(),
-      projection: MapConfig.DEFAULT_PROJECTION,
+      projection: DEFAULT_PROJECTION,
       imageExtent: layer.getSource().getImageExtent(),
     }),
   });
@@ -63,9 +71,9 @@ export function cropLayer(layer, newUri, newExtent) {
 export function getNewMap() {
   return new OlMap({
     view: new OlView({
-      center: MapConfig.MAP_CENTER,
-      projection: MapConfig.DEFAULT_PROJECTION,
-      zoom: MapConfig.DEFAULT_ZOOM,
+      center: MAP_CENTER,
+      projection: DEFAULT_PROJECTION,
+      zoom: DEFAULT_ZOOM,
     }),
     layers: [],
   });
@@ -76,10 +84,10 @@ export function addBaseLayer(map) {
 
   const osm = new OlLayerTile({
     source: new OlSourceOsm(),
-    name: 'OSM',
+    name: BASE_LAYER_NAME,
   });
   const layerGroupOsm = new OlLayerGroup({
-    name: 'OSM',
+    name: BASE_LAYER_GROUP,
     layers: [osm],
   });
 
@@ -90,19 +98,19 @@ export function addGroupToMap(map, newGroup) {
   const layersArray = map.getLayers().getArray();
   const index = layersArray.findIndex(
     (group) =>
-      parseInt(group.get('name').replace('level-', '')) >=
-      parseInt(newGroup.get('name').replace('level-', ''))
+      parseInt(group.get('name').replace(GROUP_PREFIX, '')) >=
+      parseInt(newGroup.get('name').replace(GROUP_PREFIX, ''))
   );
   map.getLayers().insertAt(index, newGroup);
 }
 
 export function addResourceToMap(map, resource) {
-  let group = getLayerGroupByName(map, 'level-' + resource.level);
+  let group = getLayerGroupByName(map, GROUP_PREFIX + resource.level);
   let groupExists = group ? true : false;
 
   if (!groupExists) {
     group = new OlLayerGroup({
-      name: 'level-' + resource.level,
+      name: GROUP_PREFIX + resource.level,
       layers: [],
     });
   }
@@ -111,7 +119,7 @@ export function addResourceToMap(map, resource) {
     name: resource.id,
     source: new Static({
       url: resource.uri,
-      projection: MapConfig.DEFAULT_PROJECTION,
+      projection: DEFAULT_PROJECTION,
       imageExtent: resource.extent,
       crossOrigin: 'Anonymous',
     }),
@@ -142,7 +150,7 @@ export function addLayersToMap(map, layers) {
         name: itemId,
         source: new Static({
           url: item.uri,
-          projection: MapConfig.DEFAULT_PROJECTION,
+          projection: DEFAULT_PROJECTION,
           imageExtent: item.extent,
           crossOrigin: 'Anonymous',
         }),
@@ -154,7 +162,7 @@ export function addLayersToMap(map, layers) {
 }
 
 export function removeResourceFromMap(map, resource) {
-  const group = getLayerGroupByName(map, 'level-' + resource.level);
+  const group = getLayerGroupByName(map, GROUP_PREFIX + resource.level);
   const layerToDelete = getLayerByName(map, resource.id);
   const groupLayers = group.getLayers();
   groupLayers.remove(layerToDelete);
