@@ -32,13 +32,6 @@ export default function TreeView(props) {
 
   const renderItems = function (path, items) {
     return items.map((item) => (
-      // <TreeItem
-      //   selected={isSelected(pathUtil.join(path, item))}
-      //   key={pathUtil.join(path, item)}
-      //   nodeId={pathUtil.join(path, item)}
-      //   label={item}
-      //   onClick={() => clickOnList(pathUtil.join(path, item))}
-      // ></TreeItem>
       <VersionView
         path={path}
         name={item}

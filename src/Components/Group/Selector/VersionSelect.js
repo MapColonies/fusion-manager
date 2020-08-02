@@ -30,11 +30,6 @@ export default function VersionView(props) {
     }
   };
 
-  //   const selectItem = async function (version) {
-  //     await getFromServer(path, version);
-  //     clickOnList({ path, item });
-  //   };
-
   return (
     <TreeItem
       selected={isSelected(createUniqueName(path, version))}

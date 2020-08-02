@@ -29,7 +29,11 @@ export default function Selector(props) {
   const itemRequest = props.itemRequest;
 
   const isSelected = function (versionAndPath) {
-    return selection && versionAndPath === createUniqueName(selection.path, selection.item.version);
+    return (
+      selection &&
+      versionAndPath ===
+        createUniqueName(selection.path, selection.item.version)
+    );
   };
 
   const toggleDialog = function () {
@@ -42,7 +46,9 @@ export default function Selector(props) {
 
   const handleSaveChanges = function () {
     dispatchFunction(selection.path, selection.item.name, dispatch);
-    setLastSelectionName(createUniqueName(selection.path, selection.item.version));
+    setLastSelectionName(
+      createUniqueName(selection.path, selection.item.version)
+    );
     toggleDialog();
   };
 
@@ -63,7 +69,6 @@ export default function Selector(props) {
         <TreeView
           className={classes.root}
           defaultCollapseIcon={<ExpandMoreIcon />}
-          // selected={selection}
           defaultExpandIcon={<ChevronRightIcon />}
         >
           <TreeInnerView
@@ -76,7 +81,8 @@ export default function Selector(props) {
         </TreeView>
         {selection &&
           (!checkNewSelection ||
-            lastSelectionName !== createUniqueName(selection.path, selection.item.version)) && (
+            lastSelectionName !==
+              createUniqueName(selection.path, selection.item.version)) && (
             <Tooltip title={`Select ${selectionKind}`}>
               <Button
                 variant="contained"

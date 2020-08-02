@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -8,27 +8,27 @@ import {
   FormControlLabel,
   Link,
   Avatar,
-  IconButton
-} from "@material-ui/core/";
-import { ExpandMore, Settings, ZoomIn } from "@material-ui/icons/";
-import { useSelector, useDispatch } from "react-redux";
-import OpacitySlider from "./OpacitySlider";
-import SettingsTabs from "../../Tabs/SettingsTabs";
+  IconButton,
+} from '@material-ui/core/';
+import { ExpandMore, Settings, ZoomIn } from '@material-ui/icons/';
+import { useSelector, useDispatch } from 'react-redux';
+import OpacitySlider from './OpacitySlider';
+import SettingsTabs from '../../Tabs/SettingsTabs';
 import {
   TOGGLE_ITEM,
   SELECT_ITEM,
   ZOOM_TO_LAYER,
   ADD_RESOURCE,
-} from "../../../Store/Reducers/actionTypes";
+} from '../../../Store/Reducers/actionTypes';
 
 const useStyles = makeStyles({
   avatar: {
-    display: "inline-table",
-    marginRight: "5px",
-    marginLeft: "-10px",
+    display: 'inline-table',
+    marginRight: '5px',
+    marginLeft: '-10px',
   },
   item: {
-    width: "100%",
+    width: '100%',
   },
 });
 
@@ -74,15 +74,15 @@ export default React.memo(function Item(props) {
         <div>
           <ExpansionPanel
             TransitionProps={{ unmountOnExit: true }}
-            style={{ background: item.selected ? "rgba(0, 158, 115,0.1)" : "" }}
+            style={{ background: item.selected ? 'rgba(0, 158, 115,0.1)' : '' }}
           >
             <ExpansionPanelSummary
-              style={{ textAlign: "left" }}
+              style={{ textAlign: 'left' }}
               {...props.provided.dragHandleProps}
               expandIcon={<ExpandMore />}
               aria-label="Expand"
               aria-controls="additional-item-content"
-              id={item.name + "-expansion-panel-summary"}
+              id={item.name + '-expansion-panel-summary'}
             >
               <div className={classes.item}>
                 <FormControlLabel
@@ -124,14 +124,7 @@ export default React.memo(function Item(props) {
               <OpacitySlider item={item} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <SettingsTabs
-            // itemId={item.name}
-            item={item}
-            // src={item.uri}
-            // extent={item.extent}
-            open={open}
-            close={handleCloseDialog}
-          />
+          <SettingsTabs item={item} open={open} close={handleCloseDialog} />
         </div>
       ) : (
         <div {...props.provided.dragHandleProps}></div>

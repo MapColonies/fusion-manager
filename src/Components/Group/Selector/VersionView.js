@@ -30,11 +30,6 @@ export default function VersionView(props) {
     }
   };
 
-  // const selectItem = async function (version) {
-  //   await getFromServer(path, version);
-  //   clickOnList({ path, item });
-  // };
-
   return (
     item && (
       <TreeItem
@@ -43,13 +38,6 @@ export default function VersionView(props) {
         label={item.latest.name}
       >
         {item.versions.map((version) => (
-          // <TreeItem
-          //   selected={isSelected(version + path)}
-          //   key={path}
-          //   nodeId={version + path}
-          //   label={version}
-          //   onClick={() => }
-          // />
           <VersionSelect
             path={path}
             name={name}
