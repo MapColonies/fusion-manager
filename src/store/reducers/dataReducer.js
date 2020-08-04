@@ -184,16 +184,6 @@ export default function (state = defaultState, action) {
     case ADD_RESOURCE:
       return produce(state, (draft) => {
         const resource = action.payload.item;
-        // const resource = {
-        //   name: "SFBayAreaLanSat_20021010",
-        //   level: "8",
-        //   version: "1",
-        //   extent: "38.464679718017578,36.454353332519531,-120.71331024169922,-123.53061676025391",
-        //   search_path: "/hello/SFBayAreaLanSat_20021010",
-        //   mask: {
-        //     no_mask: true
-        //   }
-        // };
         const groups = draft.data['groups'];
         const items = draft.data.items;
 
