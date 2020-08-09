@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select, MenuItem } from '@material-ui/core/';
 
-export default function VersionView(props) {
+export default function VersionSelector(props) {
   const { version, versions, setVersion, clickOnList } = props;
 
   const handleChange = function (e) {

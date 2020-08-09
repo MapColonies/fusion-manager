@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TreeItem } from '@material-ui/lab';
 import pathUtil from 'path';
 import { ERROR_CONTACTING_SERVER } from '../../../constants/messages/error';
 import { useSnackbar } from 'notistack';
-import VersionView from './VersionView';
 import TreeNode from './TreeNode';
-import { Folder, Map, Image } from '@material-ui/icons';
+import { Folder } from '@material-ui/icons';
 import TreeNodeItem from './TreeNodeItem';
 
 export default function TreeLevel(props) {

@@ -43,8 +43,10 @@ export default function Selector(props) {
 
   const handleSaveChanges = function () {
     setLoading(true);
-    dispatchFunction(selection.path, selection.name, selection.version);
-    setLastSelectionName(createUniqueName(selection.path, selection.version));
+    dispatchFunction(selection.path, selection.item.name, dispatch);
+    setLastSelectionName(
+      createUniqueName(selection.path, selection.item.version)
+    );
     toggleDialog();
     setLoading(false);
   };
@@ -67,7 +69,6 @@ export default function Selector(props) {
           className={classes.root}
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
-          selected={selection.path + selection.name}
         >
           <TreeLevel
             path={'/'}
