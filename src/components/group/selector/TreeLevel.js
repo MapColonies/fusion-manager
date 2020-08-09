@@ -4,8 +4,11 @@ import pathUtil from 'path';
 import { ERROR_CONTACTING_SERVER } from '../../../constants/messages/error';
 import { useSnackbar } from 'notistack';
 import VersionView from './VersionView';
+import TreeNode from './TreeNode';
+import { Folder, Map, Image } from '@material-ui/icons';
+import TreeNodeItem from './TreeNodeItem';
 
-export default function TreeView(props) {
+export default function TreeLevel(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [nodes, setNodes] = useState(null);
   const path = props.path;
@@ -20,6 +23,7 @@ export default function TreeView(props) {
 
   const getFromServer = async function (path) {
     // Get items from the server.
+    if (nodes) return;
     try {
       const res = await levelRequest(path);
       setNodes(res);
@@ -32,11 +36,12 @@ export default function TreeView(props) {
 
   const renderItems = function (path, items) {
     return items.map((item) => (
-      <VersionView
+      <TreeNodeItem
+        key={path + item}
+        nodeId={path + item}
         path={path}
         name={item}
         itemRequest={itemRequest}
-        isSelected={isSelected}
         clickOnList={clickOnList}
       />
     ));
@@ -44,26 +49,27 @@ export default function TreeView(props) {
 
   return (
     nodes && (
-      <TreeItem
+      <TreeNode
         key={path}
         nodeId={path}
-        label={path.substring(path.lastIndexOf('/') + 1)}
+        labelText={path.substring(path.lastIndexOf('/') + 1)}
+        labelIcon={Folder}
       >
         {Array.isArray(nodes.items)
           ? renderItems(props.path, nodes.items)
           : null}
         {Array.isArray(nodes.directories)
           ? nodes.directories.map((node) => (
-              <TreeView
+              <TreeLevel
+                key={pathUtil.join(path, node)}
                 path={pathUtil.join(path, node)}
                 levelRequest={levelRequest}
                 itemRequest={itemRequest}
                 clickOnList={clickOnList}
-                isSelected={isSelected}
               />
             ))
           : null}
-      </TreeItem>
+      </TreeNode>
     )
   );
 }

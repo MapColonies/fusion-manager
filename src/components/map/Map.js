@@ -28,9 +28,9 @@ function App() {
     setVisible(!visible);
   };
 
-  const fetchProject = async function (path, name) {
-    const res = await getProject(path, name);
-    dispatch({ type: UPDATE_PROJECT, payload: res.latest.resources });
+  const fetchProject = async function (path, name, version) {
+    const res = await getProject(path, name, version);
+    dispatch({ type: UPDATE_PROJECT, payload: res.resources || res.latest.resources });
   };
 
   return (
