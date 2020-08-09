@@ -18,8 +18,8 @@ export default React.memo(function Groups(props) {
     setData(dataFromStore);
   }, [dataFromStore]);
 
-  const fetchResource = async function (path, name) {
-    const res = await getResource(path, name);
+  const fetchResource = async function (path, name, version = 0) {
+    const res = await getResource(path, name, version);
     dispatch({ type: ADD_RESOURCE, payload: { item: res.latest } });
   };
 
