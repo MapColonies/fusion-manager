@@ -4,7 +4,7 @@ import { Select, MenuItem } from '@material-ui/core/';
 export default function VersionSelector(props) {
   const { version, versions, setVersion, clickOnList } = props;
 
-  const handleChange = function (e) {
+  const handleChange = (e) => {
     const newVersion = e.target.value;
     setVersion(newVersion);
     clickOnList(newVersion);
