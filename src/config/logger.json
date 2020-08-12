@@ -1,0 +1,8 @@
+{
+  "level": "debug",
+  "log2httpServer": {
+    "host": "localhost",
+    "port": 8000,
+    "path": "imagery/logs/"
+  }
+}
