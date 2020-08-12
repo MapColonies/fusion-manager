@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 import TreeNode from './TreeNode';
 import { Folder } from '@material-ui/icons';
 import TreeNodeItem from './TreeNodeItem';
+import { getPathSuffix } from '../../../util/path';
 
 export default function TreeLevel(props) {
   const { enqueueSnackbar } = useSnackbar();
@@ -13,7 +14,6 @@ export default function TreeLevel(props) {
   const levelRequest = props.levelRequest;
   const itemRequest = props.itemRequest;
   const clickOnList = props.clickOnList;
-  const isSelected = props.isSelected;
 
   useEffect(() => {
     getFromServer(path);
@@ -50,7 +50,7 @@ export default function TreeLevel(props) {
       <TreeNode
         key={path}
         nodeId={path}
-        labelText={path.substring(path.lastIndexOf('/') + 1)}
+        labelText={() => getPathSuffix(path)}
         labelIcon={Folder}
       >
         {Array.isArray(nodes.items)
