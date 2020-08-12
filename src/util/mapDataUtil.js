@@ -1,5 +1,5 @@
 import { makeCoordinatesArrayFromString } from './logic';
-import { urlThumbnail } from '../config/urls';
+import { urlThumbnail } from '../config/url/serverUrls';
 import { GROUP_PREFIX } from '../constants/map';
 
 export function addToGroups(groups, resource) {
@@ -32,7 +32,7 @@ export function removeFromGroups(groups, resource) {
 export function prepareResourceForDisplay(resource) {
   resource.id = resource.search_path;
   resource.uri =
-    urlThumbnail + 'name=' + resource.name + '&version=' + resource.version;
+    `${urlThumbnail}name=${resource.name}&version=${resource.version}&path=${resource.search_path.slice(0, -resource.name.length)}`;
   resource.checked = true;
   resource.selected = false;
   resource.opacity = 100;
