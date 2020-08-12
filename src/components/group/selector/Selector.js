@@ -43,7 +43,7 @@ export default function Selector(props) {
 
   const handleSaveChanges = function () {
     setLoading(true);
-    dispatchFunction(selection.path, selection.item.name, dispatch);
+    dispatchFunction(selection.path, selection.item.name);
     setLastSelectionName(
       createUniqueName(selection.path, selection.item.version)
     );
@@ -77,7 +77,7 @@ export default function Selector(props) {
             clickOnList={handleClickOnList}
           />
         </TreeView>
-        {selection &&
+        {selection.path !== '' &&
           (!checkNewSelection ||
             lastSelectionName !==
               createUniqueName(selection.path, selection.version)) && (
