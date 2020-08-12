@@ -7,7 +7,7 @@ import { getLayerGroupByName } from '../../util/mapUtil';
 import { UPDATE_STORE } from '../../store/reducers/actionTypes';
 import { CHOOSE_PROJECT } from '../../constants/tooltips';
 import { ADD_RESOURCE } from '../../store/reducers/actionTypes';
-import { getResources, getResource } from '../../requests/requests';
+import { getResources, getResource } from '../../requests/serverRequests';
 
 export default React.memo(function Groups(props) {
   const dataFromStore = useSelector((state) => state.data.data);

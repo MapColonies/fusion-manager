@@ -9,7 +9,7 @@ import {
   UPDATE_PROJECT,
   INITIALIZE_MAP,
 } from '../../store/reducers/actionTypes';
-import { getProjects, getProject } from '../../requests/requests';
+import { getProjects, getProject } from '../../requests/serverRequests';
 
 import 'ol/ol.css';
 import 'antd/dist/antd.css';
