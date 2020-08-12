@@ -1,3 +1,3 @@
-export function createUniqueName(path, version) {
-  return version + path;
+export function createUniqueName(path, name, version) {
+  return version + path + name;
 }
