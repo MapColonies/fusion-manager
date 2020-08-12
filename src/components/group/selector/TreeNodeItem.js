@@ -9,7 +9,7 @@ export default function TreeNodeItem(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [item, setItem] = useState(null);
   const [version, setVersion] = useState(null);
-  const { clickOnList, name, path, itemRequest, isSelected } = props;
+  const { clickOnList, name, path, itemRequest } = props;
 
   useEffect(() => {
     getFromServer();
