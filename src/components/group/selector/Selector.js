@@ -43,9 +43,9 @@ export default function Selector(props) {
 
   const handleSaveChanges = function () {
     setLoading(true);
-    dispatchFunction(selection.path, selection.item.name);
+    dispatchFunction(selection.path, selection.name);
     setLastSelectionName(
-      createUniqueName(selection.path, selection.item.version)
+      createUniqueName(selection.path, selection.name, selection.version)
     );
     toggleDialog();
     setLoading(false);
@@ -54,14 +54,14 @@ export default function Selector(props) {
   return (
     <div>
       <Tooltip title={`Select ${selectionKind}`}>
-        <IconButton onClick={() => toggleDialog()}>
+        <IconButton onClick={toggleDialog}>
           <PhotoLibrary />
         </IconButton>
       </Tooltip>
       <Dialog
         keepMounted
         open={open}
-        onClose={() => toggleDialog()}
+        onClose={toggleDialog}
         fullWidth={true}
         maxWidth="sm"
       >
@@ -80,13 +80,13 @@ export default function Selector(props) {
         {selection.path !== '' &&
           (!checkNewSelection ||
             lastSelectionName !==
-              createUniqueName(selection.path, selection.version)) && (
+              createUniqueName(selection.path, selection.name, selection.version)) && (
             <Tooltip title={`Select ${selectionKind}`}>
               <Button
                 variant="contained"
                 color="primary"
                 startIcon={<Save />}
-                onClick={() => handleSaveChanges()}
+                onClick={handleSaveChanges}
               >
                 Save changes
               </Button>
